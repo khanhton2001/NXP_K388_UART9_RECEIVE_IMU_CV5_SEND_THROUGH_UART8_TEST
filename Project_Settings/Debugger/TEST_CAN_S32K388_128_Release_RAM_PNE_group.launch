@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="org.eclipse.debug.core.groups.GroupLaunchConfigurationType">
+<stringAttribute key="org.eclipse.debug.core.launchGroup.0.action" value="NONE"/>
+<booleanAttribute key="org.eclipse.debug.core.launchGroup.0.adoptIfRunning" value="false"/>
+<booleanAttribute key="org.eclipse.debug.core.launchGroup.0.enabled" value="true"/>
+<stringAttribute key="org.eclipse.debug.core.launchGroup.0.mode" value="debug"/>
+<stringAttribute key="org.eclipse.debug.core.launchGroup.0.name" value="TEST_CAN_S32K388_128_M7_0_0_Release_RAM_PNE"/>
+<stringAttribute key="org.eclipse.debug.core.launchGroup.1.action" value="NONE"/>
+<booleanAttribute key="org.eclipse.debug.core.launchGroup.1.adoptIfRunning" value="false"/>
+<booleanAttribute key="org.eclipse.debug.core.launchGroup.1.enabled" value="true"/>
+<stringAttribute key="org.eclipse.debug.core.launchGroup.1.mode" value="debug"/>
+<stringAttribute key="org.eclipse.debug.core.launchGroup.1.name" value="TEST_CAN_S32K388_128_M7_1_0_Release_RAM_PNE"/>
+<stringAttribute key="org.eclipse.debug.core.launchGroup.2.action" value="NONE"/>
+<booleanAttribute key="org.eclipse.debug.core.launchGroup.2.adoptIfRunning" value="false"/>
+<booleanAttribute key="org.eclipse.debug.core.launchGroup.2.enabled" value="true"/>
+<stringAttribute key="org.eclipse.debug.core.launchGroup.2.mode" value="debug"/>
+<stringAttribute key="org.eclipse.debug.core.launchGroup.2.name" value="TEST_CAN_S32K388_128_M7_2_0_Release_RAM_PNE"/>
+<mapAttribute key="org.eclipse.debug.core.preferred_launchers">
+<mapEntry key="[debug]" value="org.eclipse.debug.core.launchGroup.delegate"/>
+<mapEntry key="[run]" value="org.eclipse.debug.core.launchGroup.delegate"/>
+</mapAttribute>
+</launchConfiguration>

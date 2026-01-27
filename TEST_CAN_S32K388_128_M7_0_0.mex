@@ -1,0 +1,1103 @@
+<?xml version="1.0" encoding= "UTF-8" ?>
+<configuration name="S32K388" xsi:schemaLocation="http://mcuxpresso.nxp.com/XSD/mex_configuration_17 http://mcuxpresso.nxp.com/XSD/mex_configuration_17.xsd" uuid="46c1a376-124f-49aa-a66f-54e787657470" version="17" xmlns="http://mcuxpresso.nxp.com/XSD/mex_configuration_17" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <common>
+      <processor>S32K388</processor>
+      <package>S32K388_289BGA</package>
+      <mcu_data>PlatformSDK_S32K3</mcu_data>
+      <cores selected="M7_0_0">
+         <core name="Cortex-M7 (Core #0)" id="M7_0_0" description=""/>
+         <core name="Cortex-M7 (Core #1)" id="M7_0_1" description=""/>
+         <core name="Cortex-M7 (Core #2)" id="M7_1_0" description=""/>
+         <core name="Cortex-M7 (Core #3)" id="M7_2_0" description=""/>
+      </cores>
+      <description></description>
+   </common>
+   <preferences>
+      <validate_boot_init_only>true</validate_boot_init_only>
+      <generate_code_modified_registers_only>false</generate_code_modified_registers_only>
+      <update_include_paths>true</update_include_paths>
+      <generate_registers_defines>false</generate_registers_defines>
+   </preferences>
+   <tools>
+      <pins name="Pins" version="17.0" enabled="true" update_project_code="true">
+         <generated_project_files>
+            <file path="board/Siul2_Port_Ip_Cfg.c" update_enabled="true"/>
+            <file path="board/Siul2_Port_Ip_Cfg.h" update_enabled="true"/>
+            <file path="board/Tspc_Port_Ip_Cfg.c" update_enabled="true"/>
+            <file path="board/Tspc_Port_Ip_Cfg.h" update_enabled="true"/>
+         </generated_project_files>
+         <pins_profile>
+            <processor_version>0.0.0</processor_version>
+            <pin_labels>
+               <pin_label pin_num="C15" pin_signal="PTB9" label="UART9_RX" identifier="UART9_RX"/>
+               <pin_label pin_num="D15" pin_signal="PTB10" label="UART9_TX" identifier="UART8_RX;UART8_TX;UART9_TX"/>
+               <pin_label pin_num="J15" pin_signal="PTF20" label="UART8_TX" identifier="UART8_TX"/>
+               <pin_label pin_num="K14" pin_signal="PTF21" label="UART8_RX" identifier="UART8_RX"/>
+            </pin_labels>
+         </pins_profile>
+         <functions_list>
+            <function name="PortContainer_0_BOARD_InitPeripherals">
+               <description>Configures pin routing and optionally pin electrical features.</description>
+               <options>
+                  <callFromInitBoot>true</callFromInitBoot>
+                  <coreID>M7_0_0</coreID>
+               </options>
+               <dependencies>
+                  <dependency resourceType="SWComponent" resourceId="platform.driver.pins" description="Pins initialization requires the PINS Driver in the project." problem_level="2" source="Pins:PortContainer_0_BOARD_InitPeripherals">
+                     <feature name="enabled" evaluation="equal" configuration="M7_0_0">
+                        <data>true</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="SWComponent" resourceId="platform.driver.pins" description="Pins initialization requires the PINS Driver in the project." problem_level="2" source="Pins:PortContainer_0_BOARD_InitPeripherals">
+                     <feature name="enabled" evaluation="equal" configuration="M7_0_1">
+                        <data>true</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="SWComponent" resourceId="platform.driver.pins" description="Pins initialization requires the PINS Driver in the project." problem_level="2" source="Pins:PortContainer_0_BOARD_InitPeripherals">
+                     <feature name="enabled" evaluation="equal" configuration="M7_1_0">
+                        <data>true</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="SWComponent" resourceId="platform.driver.pins" description="Pins initialization requires the PINS Driver in the project." problem_level="2" source="Pins:PortContainer_0_BOARD_InitPeripherals">
+                     <feature name="enabled" evaluation="equal" configuration="M7_2_0">
+                        <data>true</data>
+                     </feature>
+                  </dependency>
+               </dependencies>
+               <pins>
+                  <pin peripheral="SIUL2" signal="gpio, 0" pin_num="A13" pin_signal="PTA0">
+                     <pin_features>
+                        <pin_feature name="direction" value="INPUT/OUTPUT"/>
+                     </pin_features>
+                  </pin>
+                  <pin peripheral="CAN0" signal="can0_rx" pin_num="M15" pin_signal="PTA6"/>
+                  <pin peripheral="CAN0" signal="can0_tx" pin_num="M16" pin_signal="PTA7"/>
+                  <pin peripheral="LPI2C0" signal="lpi2c0_scl" pin_num="M4" pin_signal="PTD14">
+                     <pin_features>
+                        <pin_feature name="direction" value="INPUT/OUTPUT"/>
+                     </pin_features>
+                  </pin>
+                  <pin peripheral="LPI2C0" signal="lpi2c0_sda" pin_num="P5" pin_signal="PTD13">
+                     <pin_features>
+                        <pin_feature name="direction" value="INPUT/OUTPUT"/>
+                     </pin_features>
+                  </pin>
+                  <pin peripheral="LPUART9" signal="lpuart9_rx" pin_num="C15" pin_signal="PTB9"/>
+                  <pin peripheral="LPUART9" signal="lpuart9_tx" pin_num="D15" pin_signal="PTB10">
+                     <pin_features>
+                        <pin_feature name="identifier" value="UART9_TX"/>
+                        <pin_feature name="direction" value="OUTPUT"/>
+                     </pin_features>
+                  </pin>
+                  <pin peripheral="LPUART8" signal="lpuart8_tx" pin_num="J15" pin_signal="PTF20">
+                     <pin_features>
+                        <pin_feature name="direction" value="OUTPUT"/>
+                     </pin_features>
+                  </pin>
+                  <pin peripheral="LPUART8" signal="lpuart8_rx" pin_num="K14" pin_signal="PTF21"/>
+               </pins>
+            </function>
+         </functions_list>
+      </pins>
+      <clocks name="Clocks" version="15.0" enabled="true" update_project_code="true">
+         <generated_project_files>
+            <file path="generate/include/Clock_Ip_Cfg.h" update_enabled="true"/>
+            <file path="generate/include/Clock_Ip_Cfg_Defines.h" update_enabled="true"/>
+            <file path="generate/src/Clock_Ip_Cfg.c" update_enabled="true"/>
+         </generated_project_files>
+         <clocks_profile>
+            <processor_version>0.0.0</processor_version>
+         </clocks_profile>
+         <clock_configurations>
+            <clock_configuration name="ClockConfig0" id_prefix="" prefix_user_defined="false">
+               <description></description>
+               <options/>
+               <dependencies>
+                  <dependency resourceType="PinSignal" resourceId="FXOSC_CLK.EXTAL" description="&apos;External pin&apos; (Pins tool id: FXOSC_CLK.EXTAL, Clocks tool id: FXOSC_CLK.EXTAL) needs to be routed" problem_level="1" source="Clocks:ClockConfig0">
+                     <feature name="routed" evaluation="">
+                        <data>true</data>
+                     </feature>
+                     <feature name="direction" evaluation="">
+                        <data>INPUT</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="PinSignal" resourceId="FXOSC_CLK.XTAL" description="&apos;External pin&apos; (Pins tool id: FXOSC_CLK.XTAL, Clocks tool id: FXOSC_CLK.XTAL) needs to be routed" problem_level="1" source="Clocks:ClockConfig0">
+                     <feature name="routed" evaluation="">
+                        <data>true</data>
+                     </feature>
+                     <feature name="direction" evaluation="">
+                        <data>OUTPUT</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="PinSignal" resourceId="SXOSC_CLK.EXTAL" description="&apos;External pin&apos; (Pins tool id: SXOSC_CLK.EXTAL, Clocks tool id: SXOSC_CLK.EXTAL) needs to be routed" problem_level="1" source="Clocks:ClockConfig0">
+                     <feature name="routed" evaluation="">
+                        <data>true</data>
+                     </feature>
+                     <feature name="direction" evaluation="">
+                        <data>INPUT</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="PinSignal" resourceId="SXOSC_CLK.XTAL" description="&apos;External pin&apos; (Pins tool id: SXOSC_CLK.XTAL, Clocks tool id: SXOSC_CLK.XTAL) needs to be routed" problem_level="1" source="Clocks:ClockConfig0">
+                     <feature name="routed" evaluation="">
+                        <data>true</data>
+                     </feature>
+                     <feature name="direction" evaluation="">
+                        <data>OUTPUT</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="SWComponent" resourceId="platform.driver.clock" description="Clocks initialization requires the CLOCK Driver in the project." problem_level="2" source="Clocks:ClockConfig0">
+                     <feature name="enabled" evaluation="equal" configuration="M7_0_0">
+                        <data>true</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="SWComponent" resourceId="platform.driver.clock" description="Clocks initialization requires the CLOCK Driver in the project." problem_level="2" source="Clocks:ClockConfig0">
+                     <feature name="enabled" evaluation="equal" configuration="M7_0_1">
+                        <data>true</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="SWComponent" resourceId="platform.driver.clock" description="Clocks initialization requires the CLOCK Driver in the project." problem_level="2" source="Clocks:ClockConfig0">
+                     <feature name="enabled" evaluation="equal" configuration="M7_1_0">
+                        <data>true</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="SWComponent" resourceId="platform.driver.clock" description="Clocks initialization requires the CLOCK Driver in the project." problem_level="2" source="Clocks:ClockConfig0">
+                     <feature name="enabled" evaluation="equal" configuration="M7_2_0">
+                        <data>true</data>
+                     </feature>
+                  </dependency>
+               </dependencies>
+               <clock_sources>
+                  <clock_source id="FXOSC_CLK.FXOSC_CLK.outFreq" value="16 MHz" locked="false" enabled="true"/>
+                  <clock_source id="SXOSC_CLK.SXOSC_CLK.outFreq" value="32.768 kHz" locked="false" enabled="true"/>
+               </clock_sources>
+               <clock_outputs>
+                  <clock_output id="ADC0_CLK.outFreq" value="160 MHz" locked="false" accuracy=""/>
+                  <clock_output id="ADC1_CLK.outFreq" value="160 MHz" locked="false" accuracy=""/>
+                  <clock_output id="ADC2_CLK.outFreq" value="160 MHz" locked="false" accuracy=""/>
+                  <clock_output id="AES_ACCEL_CLK.outFreq" value="48 MHz" locked="false" accuracy=""/>
+                  <clock_output id="AES_APP0_CLK.outFreq" value="48 MHz" locked="false" accuracy=""/>
+                  <clock_output id="AES_APP1_CLK.outFreq" value="48 MHz" locked="false" accuracy=""/>
+                  <clock_output id="AES_APP2_CLK.outFreq" value="48 MHz" locked="false" accuracy=""/>
+                  <clock_output id="AES_APP3_CLK.outFreq" value="48 MHz" locked="false" accuracy=""/>
+                  <clock_output id="AES_APP4_CLK.outFreq" value="48 MHz" locked="false" accuracy=""/>
+                  <clock_output id="AES_APP5_CLK.outFreq" value="48 MHz" locked="false" accuracy=""/>
+                  <clock_output id="AES_APP6_CLK.outFreq" value="48 MHz" locked="false" accuracy=""/>
+                  <clock_output id="AES_APP7_CLK.outFreq" value="48 MHz" locked="false" accuracy=""/>
+                  <clock_output id="AES_CLK.outFreq" value="48 MHz" locked="false" accuracy=""/>
+                  <clock_output id="AIPS_PLAT_CLK.outFreq" value="80 MHz" locked="false" accuracy=""/>
+                  <clock_output id="AIPS_SLOW_CLK.outFreq" value="40 MHz" locked="false" accuracy=""/>
+                  <clock_output id="BCTU0_CLK.outFreq" value="160 MHz" locked="false" accuracy=""/>
+                  <clock_output id="CLKOUT_RUN_CLK.outFreq" value="8 MHz" locked="false" accuracy=""/>
+                  <clock_output id="CLKOUT_STANDBY_CLK.outFreq" value="24 MHz" locked="false" accuracy=""/>
+                  <clock_output id="CM7_CORE_CLK.outFreq" value="160 MHz" locked="false" accuracy=""/>
+                  <clock_output id="CMP0_CLK.outFreq" value="40 MHz" locked="false" accuracy=""/>
+                  <clock_output id="CMP1_CLK.outFreq" value="40 MHz" locked="false" accuracy=""/>
+                  <clock_output id="CMP2_CLK.outFreq" value="40 MHz" locked="false" accuracy=""/>
+                  <clock_output id="CORE_CLK.outFreq" value="160 MHz" locked="false" accuracy=""/>
+                  <clock_output id="CRC0_CLK.outFreq" value="80 MHz" locked="false" accuracy=""/>
+                  <clock_output id="DCM0_CLK.outFreq" value="40 MHz" locked="false" accuracy=""/>
+                  <clock_output id="DCM_CLK.outFreq" value="40 MHz" locked="false" accuracy=""/>
+                  <clock_output id="DMAMUX0_CLK.outFreq" value="160 MHz" locked="false" accuracy=""/>
+                  <clock_output id="DMAMUX1_CLK.outFreq" value="160 MHz" locked="false" accuracy=""/>
+                  <clock_output id="EDMA0_CLK.outFreq" value="160 MHz" locked="false" accuracy=""/>
+                  <clock_output id="EDMA0_TCD0_CLK.outFreq" value="160 MHz" locked="false" accuracy=""/>
+                  <clock_output id="EDMA0_TCD10_CLK.outFreq" value="160 MHz" locked="false" accuracy=""/>
+                  <clock_output id="EDMA0_TCD11_CLK.outFreq" value="160 MHz" locked="false" accuracy=""/>
+                  <clock_output id="EDMA0_TCD12_CLK.outFreq" value="160 MHz" locked="false" accuracy=""/>
+                  <clock_output id="EDMA0_TCD13_CLK.outFreq" value="160 MHz" locked="false" accuracy=""/>
+                  <clock_output id="EDMA0_TCD14_CLK.outFreq" value="160 MHz" locked="false" accuracy=""/>
+                  <clock_output id="EDMA0_TCD15_CLK.outFreq" value="160 MHz" locked="false" accuracy=""/>
+                  <clock_output id="EDMA0_TCD16_CLK.outFreq" value="160 MHz" locked="false" accuracy=""/>
+                  <clock_output id="EDMA0_TCD17_CLK.outFreq" value="160 MHz" locked="false" accuracy=""/>
+                  <clock_output id="EDMA0_TCD18_CLK.outFreq" value="160 MHz" locked="false" accuracy=""/>
+                  <clock_output id="EDMA0_TCD19_CLK.outFreq" value="160 MHz" locked="false" accuracy=""/>
+                  <clock_output id="EDMA0_TCD1_CLK.outFreq" value="160 MHz" locked="false" accuracy=""/>
+                  <clock_output id="EDMA0_TCD20_CLK.outFreq" value="160 MHz" locked="false" accuracy=""/>
+                  <clock_output id="EDMA0_TCD21_CLK.outFreq" value="160 MHz" locked="false" accuracy=""/>
+                  <clock_output id="EDMA0_TCD22_CLK.outFreq" value="160 MHz" locked="false" accuracy=""/>
+                  <clock_output id="EDMA0_TCD23_CLK.outFreq" value="160 MHz" locked="false" accuracy=""/>
+                  <clock_output id="EDMA0_TCD24_CLK.outFreq" value="160 MHz" locked="false" accuracy=""/>
+                  <clock_output id="EDMA0_TCD25_CLK.outFreq" value="160 MHz" locked="false" accuracy=""/>
+                  <clock_output id="EDMA0_TCD26_CLK.outFreq" value="160 MHz" locked="false" accuracy=""/>
+                  <clock_output id="EDMA0_TCD27_CLK.outFreq" value="160 MHz" locked="false" accuracy=""/>
+                  <clock_output id="EDMA0_TCD28_CLK.outFreq" value="160 MHz" locked="false" accuracy=""/>
+                  <clock_output id="EDMA0_TCD29_CLK.outFreq" value="160 MHz" locked="false" accuracy=""/>
+                  <clock_output id="EDMA0_TCD2_CLK.outFreq" value="160 MHz" locked="false" accuracy=""/>
+                  <clock_output id="EDMA0_TCD30_CLK.outFreq" value="160 MHz" locked="false" accuracy=""/>
+                  <clock_output id="EDMA0_TCD31_CLK.outFreq" value="160 MHz" locked="false" accuracy=""/>
+                  <clock_output id="EDMA0_TCD3_CLK.outFreq" value="160 MHz" locked="false" accuracy=""/>
+                  <clock_output id="EDMA0_TCD4_CLK.outFreq" value="160 MHz" locked="false" accuracy=""/>
+                  <clock_output id="EDMA0_TCD5_CLK.outFreq" value="160 MHz" locked="false" accuracy=""/>
+                  <clock_output id="EDMA0_TCD6_CLK.outFreq" value="160 MHz" locked="false" accuracy=""/>
+                  <clock_output id="EDMA0_TCD7_CLK.outFreq" value="160 MHz" locked="false" accuracy=""/>
+                  <clock_output id="EDMA0_TCD8_CLK.outFreq" value="160 MHz" locked="false" accuracy=""/>
+                  <clock_output id="EDMA0_TCD9_CLK.outFreq" value="160 MHz" locked="false" accuracy=""/>
+                  <clock_output id="EIM0_CLK.outFreq" value="80 MHz" locked="false" accuracy=""/>
+                  <clock_output id="EIM1_CLK.outFreq" value="80 MHz" locked="false" accuracy=""/>
+                  <clock_output id="EIM2_CLK.outFreq" value="80 MHz" locked="false" accuracy=""/>
+                  <clock_output id="EIM3_CLK.outFreq" value="80 MHz" locked="false" accuracy=""/>
+                  <clock_output id="EMIOS0_CLK.outFreq" value="160 MHz" locked="false" accuracy=""/>
+                  <clock_output id="EMIOS1_CLK.outFreq" value="160 MHz" locked="false" accuracy=""/>
+                  <clock_output id="EMIOS2_CLK.outFreq" value="160 MHz" locked="false" accuracy=""/>
+                  <clock_output id="ERM0_CLK.outFreq" value="40 MHz" locked="false" accuracy=""/>
+                  <clock_output id="ERM1_CLK.outFreq" value="40 MHz" locked="false" accuracy=""/>
+                  <clock_output id="FIRCOUT.outFreq" value="48 MHz" locked="false" accuracy=""/>
+                  <clock_output id="FLASH0_CLK.outFreq" value="40 MHz" locked="false" accuracy=""/>
+                  <clock_output id="FLEXCAN0_CLK.outFreq" value="48 MHz" locked="false" accuracy=""/>
+                  <clock_output id="FLEXCAN1_CLK.outFreq" value="48 MHz" locked="false" accuracy=""/>
+                  <clock_output id="FLEXCAN2_CLK.outFreq" value="48 MHz" locked="false" accuracy=""/>
+                  <clock_output id="FLEXCAN3_CLK.outFreq" value="24 MHz" locked="false" accuracy=""/>
+                  <clock_output id="FLEXCAN4_CLK.outFreq" value="24 MHz" locked="false" accuracy=""/>
+                  <clock_output id="FLEXCAN5_CLK.outFreq" value="24 MHz" locked="false" accuracy=""/>
+                  <clock_output id="FLEXCAN6_CLK.outFreq" value="24 MHz" locked="false" accuracy=""/>
+                  <clock_output id="FLEXCAN7_CLK.outFreq" value="24 MHz" locked="false" accuracy=""/>
+                  <clock_output id="FLEXCANA_CLK.outFreq" value="48 MHz" locked="false" accuracy=""/>
+                  <clock_output id="FLEXCANB_CLK.outFreq" value="24 MHz" locked="false" accuracy=""/>
+                  <clock_output id="FLEXIO0_CLK.outFreq" value="160 MHz" locked="false" accuracy=""/>
+                  <clock_output id="FXOSCOUT.outFreq" value="16 MHz" locked="false" accuracy=""/>
+                  <clock_output id="GMAC0_RX_CLK.outFreq" value="48 MHz" locked="false" accuracy=""/>
+                  <clock_output id="GMAC0_TX_CLK.outFreq" value="48 MHz" locked="false" accuracy=""/>
+                  <clock_output id="GMAC1_RX_CLK.outFreq" value="48 MHz" locked="false" accuracy=""/>
+                  <clock_output id="GMAC1_TX_CLK.outFreq" value="48 MHz" locked="false" accuracy=""/>
+                  <clock_output id="GMAC_TS_CLK.outFreq" value="48 MHz" locked="false" accuracy=""/>
+                  <clock_output id="HSE_CLK.outFreq" value="80 MHz" locked="false" accuracy=""/>
+                  <clock_output id="INTM_CLK.outFreq" value="80 MHz" locked="false" accuracy=""/>
+                  <clock_output id="LBIST_CLK.outFreq" value="40 MHz" locked="false" accuracy=""/>
+                  <clock_output id="LCU0_CLK.outFreq" value="160 MHz" locked="false" accuracy=""/>
+                  <clock_output id="LCU1_CLK.outFreq" value="160 MHz" locked="false" accuracy=""/>
+                  <clock_output id="LPI2C0_CLK.outFreq" value="40 MHz" locked="false" accuracy=""/>
+                  <clock_output id="LPI2C1_CLK.outFreq" value="40 MHz" locked="false" accuracy=""/>
+                  <clock_output id="LPSPI0_CLK.outFreq" value="80 MHz" locked="false" accuracy=""/>
+                  <clock_output id="LPSPI1_CLK.outFreq" value="40 MHz" locked="false" accuracy=""/>
+                  <clock_output id="LPSPI2_CLK.outFreq" value="40 MHz" locked="false" accuracy=""/>
+                  <clock_output id="LPSPI3_CLK.outFreq" value="40 MHz" locked="false" accuracy=""/>
+                  <clock_output id="LPSPI4_CLK.outFreq" value="40 MHz" locked="false" accuracy=""/>
+                  <clock_output id="LPSPI5_CLK.outFreq" value="40 MHz" locked="false" accuracy=""/>
+                  <clock_output id="LPUART0_CLK.outFreq" value="80 MHz" locked="false" accuracy=""/>
+                  <clock_output id="LPUART10_CLK.outFreq" value="80 MHz" locked="false" accuracy=""/>
+                  <clock_output id="LPUART11_CLK.outFreq" value="80 MHz" locked="false" accuracy=""/>
+                  <clock_output id="LPUART12_CLK.outFreq" value="80 MHz" locked="false" accuracy=""/>
+                  <clock_output id="LPUART13_CLK.outFreq" value="80 MHz" locked="false" accuracy=""/>
+                  <clock_output id="LPUART14_CLK.outFreq" value="80 MHz" locked="false" accuracy=""/>
+                  <clock_output id="LPUART15_CLK.outFreq" value="80 MHz" locked="false" accuracy=""/>
+                  <clock_output id="LPUART1_CLK.outFreq" value="80 MHz" locked="false" accuracy=""/>
+                  <clock_output id="LPUART2_CLK.outFreq" value="80 MHz" locked="false" accuracy=""/>
+                  <clock_output id="LPUART3_CLK.outFreq" value="80 MHz" locked="false" accuracy=""/>
+                  <clock_output id="LPUART4_CLK.outFreq" value="80 MHz" locked="false" accuracy=""/>
+                  <clock_output id="LPUART5_CLK.outFreq" value="80 MHz" locked="false" accuracy=""/>
+                  <clock_output id="LPUART6_CLK.outFreq" value="80 MHz" locked="false" accuracy=""/>
+                  <clock_output id="LPUART7_CLK.outFreq" value="80 MHz" locked="false" accuracy=""/>
+                  <clock_output id="LPUART8_CLK.outFreq" value="80 MHz" locked="false" accuracy=""/>
+                  <clock_output id="LPUART9_CLK.outFreq" value="80 MHz" locked="false" accuracy=""/>
+                  <clock_output id="MSCM_CLK.outFreq" value="80 MHz" locked="false" accuracy=""/>
+                  <clock_output id="MU2A_CLK.outFreq" value="40 MHz" locked="false" accuracy=""/>
+                  <clock_output id="MU2B_CLK.outFreq" value="40 MHz" locked="false" accuracy=""/>
+                  <clock_output id="MU3A_CLK.outFreq" value="40 MHz" locked="false" accuracy=""/>
+                  <clock_output id="MU3B_CLK.outFreq" value="40 MHz" locked="false" accuracy=""/>
+                  <clock_output id="MU4A_CLK.outFreq" value="40 MHz" locked="false" accuracy=""/>
+                  <clock_output id="MU4B_CLK.outFreq" value="40 MHz" locked="false" accuracy=""/>
+                  <clock_output id="PIT0_CLK.outFreq" value="40 MHz" locked="false" accuracy=""/>
+                  <clock_output id="PIT1_CLK.outFreq" value="40 MHz" locked="false" accuracy=""/>
+                  <clock_output id="PIT2_CLK.outFreq" value="40 MHz" locked="false" accuracy=""/>
+                  <clock_output id="PIT3_CLK.outFreq" value="40 MHz" locked="false" accuracy=""/>
+                  <clock_output id="PLL_AUX_PHI0.outFreq" value="160 MHz" locked="false" accuracy=""/>
+                  <clock_output id="PLL_AUX_PHI1.outFreq" value="240 MHz" locked="false" accuracy=""/>
+                  <clock_output id="PLL_PHI0.outFreq" value="160 MHz" locked="false" accuracy=""/>
+                  <clock_output id="PLL_PHI1.outFreq" value="160 MHz" locked="false" accuracy=""/>
+                  <clock_output id="QSPI0_RAM_CLK.outFreq" value="160 MHz" locked="false" accuracy=""/>
+                  <clock_output id="QSPI0_SFCK.outFreq" value="24 MHz" locked="false" accuracy=""/>
+                  <clock_output id="QSPI0_TX_MEM_CLK.outFreq" value="160 MHz" locked="false" accuracy=""/>
+                  <clock_output id="QSPI_MEM_CLK.outFreq" value="160 MHz" locked="false" accuracy=""/>
+                  <clock_output id="QSPI_SFCK_CLK.outFreq" value="24 MHz" locked="false" accuracy=""/>
+                  <clock_output id="RTC0_CLK.outFreq" value="32.768 kHz" locked="false" accuracy=""/>
+                  <clock_output id="RTC_CLK.outFreq" value="32.768 kHz" locked="false" accuracy=""/>
+                  <clock_output id="SAI0_CLK.outFreq" value="40 MHz" locked="false" accuracy=""/>
+                  <clock_output id="SAI1_CLK.outFreq" value="40 MHz" locked="false" accuracy=""/>
+                  <clock_output id="SCS_CLK.outFreq" value="160 MHz" locked="false" accuracy=""/>
+                  <clock_output id="SDA_AP_CLK.outFreq" value="160 MHz" locked="false" accuracy=""/>
+                  <clock_output id="SEMA42_CLK.outFreq" value="80 MHz" locked="false" accuracy=""/>
+                  <clock_output id="SIRCOUT.outFreq" value="32 kHz" locked="false" accuracy=""/>
+                  <clock_output id="SIUL2_CLK.outFreq" value="40 MHz" locked="false" accuracy=""/>
+                  <clock_output id="STCU0_CLK.outFreq" value="40 MHz" locked="false" accuracy=""/>
+                  <clock_output id="STM0_CLK.outFreq" value="48 MHz" locked="false" accuracy=""/>
+                  <clock_output id="STM1_CLK.outFreq" value="48 MHz" locked="false" accuracy=""/>
+                  <clock_output id="STM2_CLK.outFreq" value="48 MHz" locked="false" accuracy=""/>
+                  <clock_output id="STM3_CLK.outFreq" value="24 MHz" locked="false" accuracy=""/>
+                  <clock_output id="STMA_CLK.outFreq" value="48 MHz" locked="false" accuracy=""/>
+                  <clock_output id="STMB_CLK.outFreq" value="48 MHz" locked="false" accuracy=""/>
+                  <clock_output id="STMC_CLK.outFreq" value="48 MHz" locked="false" accuracy=""/>
+                  <clock_output id="STMD_CLK.outFreq" value="24 MHz" locked="false" accuracy=""/>
+                  <clock_output id="SWT0_CLK.outFreq" value="32 kHz" locked="false" accuracy=""/>
+                  <clock_output id="SWT1_CLK.outFreq" value="32 kHz" locked="false" accuracy=""/>
+                  <clock_output id="SWT2_CLK.outFreq" value="32 kHz" locked="false" accuracy=""/>
+                  <clock_output id="SWT3_CLK.outFreq" value="32 kHz" locked="false" accuracy=""/>
+                  <clock_output id="SXOSCOUT.outFreq" value="32.768 kHz" locked="false" accuracy=""/>
+                  <clock_output id="TEMPSENSE_CLK.outFreq" value="160 MHz" locked="false" accuracy=""/>
+                  <clock_output id="TRACE_CLK.outFreq" value="48 MHz" locked="false" accuracy=""/>
+                  <clock_output id="TRGMUX0_CLK.outFreq" value="40 MHz" locked="false" accuracy=""/>
+                  <clock_output id="TSENSE0_CLK.outFreq" value="40 MHz" locked="false" accuracy=""/>
+                  <clock_output id="WKPU0_CLK.outFreq" value="40 MHz" locked="false" accuracy=""/>
+               </clock_outputs>
+               <clock_settings>
+                  <setting id="CORE_MFD.scale" value="120" locked="true"/>
+                  <setting id="CORE_PLLODIV_0_DE" value="Enabled" locked="false"/>
+                  <setting id="CORE_PLLODIV_1_DE" value="Enabled" locked="false"/>
+                  <setting id="CORE_PLL_PD" value="Power_up" locked="false"/>
+                  <setting id="FXOSC_PM" value="Crystal_mode" locked="false"/>
+                  <setting id="MC_CGM_MUX_0.sel" value="PHI0" locked="false"/>
+                  <setting id="MC_CGM_MUX_0_DIV0.scale" value="1" locked="true"/>
+                  <setting id="MC_CGM_MUX_0_DIV0_Trigger" value="Common" locked="false"/>
+                  <setting id="MC_CGM_MUX_0_DIV1.scale" value="2" locked="true"/>
+                  <setting id="MC_CGM_MUX_0_DIV1_Trigger" value="Common" locked="false"/>
+                  <setting id="MC_CGM_MUX_0_DIV2.scale" value="4" locked="true"/>
+                  <setting id="MC_CGM_MUX_0_DIV2_Trigger" value="Common" locked="false"/>
+                  <setting id="MC_CGM_MUX_0_DIV3.scale" value="2" locked="true"/>
+                  <setting id="MC_CGM_MUX_0_DIV3_Trigger" value="Common" locked="false"/>
+                  <setting id="MC_CGM_MUX_0_DIV4.scale" value="4" locked="true"/>
+                  <setting id="MC_CGM_MUX_0_DIV4_Trigger" value="Common" locked="false"/>
+                  <setting id="MC_CGM_MUX_0_DIV5.scale" value="4" locked="true"/>
+                  <setting id="MC_CGM_MUX_0_DIV5_Trigger" value="Common" locked="false"/>
+                  <setting id="MC_CGM_MUX_0_DIV6.scale" value="1" locked="true"/>
+                  <setting id="MC_CGM_MUX_0_DIV6_Trigger" value="Common" locked="false"/>
+                  <setting id="MC_CGM_MUX_0_DIV7_Trigger" value="Common" locked="false"/>
+                  <setting id="MC_CGM_MUX_6.sel" value="N/A" locked="false"/>
+                  <setting id="MC_CGM_MUX_6_DE0" value="Enabled" locked="false"/>
+                  <setting id="MC_CGM_MUX_6_DIV0.scale" value="2" locked="true"/>
+                  <setting id="MODULE_CLOCKS.MC_CGM_AUX3_DIV0.scale" value="1" locked="true"/>
+                  <setting id="MODULE_CLOCKS.MC_CGM_AUX4_DIV0.scale" value="2" locked="true"/>
+                  <setting id="PHI0.scale" value="3" locked="true"/>
+                  <setting id="PHI1.scale" value="3" locked="true"/>
+                  <setting id="PLLAUX_MFI.scale" value="120" locked="true"/>
+                  <setting id="PLLAUX_ODIV_0_DE" value="Enabled" locked="false"/>
+                  <setting id="PLLAUX_ODIV_1_DE" value="Enabled" locked="false"/>
+                  <setting id="PLLAUX_PD" value="Power_up" locked="false"/>
+                  <setting id="PLLAUX_PHI0.scale" value="3" locked="true"/>
+                  <setting id="PLLAUX_PHI1.scale" value="2" locked="true"/>
+                  <setting id="PLLAUX_POSTDIV.scale" value="2" locked="true"/>
+                  <setting id="PLLAUX_PREDIV.scale" value="2" locked="true"/>
+                  <setting id="PLL_PREDIV.scale" value="2" locked="true"/>
+                  <setting id="POSTDIV.scale" value="2" locked="true"/>
+                  <setting id="SXOSC_PM" value="Crystal_mode" locked="false"/>
+               </clock_settings>
+               <called_from_default_init>true</called_from_default_init>
+            </clock_configuration>
+         </clock_configurations>
+      </clocks>
+      <ddr name="DDR" version="1.0" enabled="false" update_project_code="true">
+         <generated_project_files/>
+         <components/>
+      </ddr>
+      <dcd name="DCD" version="1.0" enabled="true" update_project_code="true" isSelfTest="false">
+         <generated_project_files>
+            <file path="board/dcf_config.c" update_enabled="true"/>
+         </generated_project_files>
+         <dcdx_profile>
+            <processor_version>N/A</processor_version>
+         </dcdx_profile>
+         <dcdx_configurations>
+            <dcdx_configuration name="DCD Configuration">
+               <description></description>
+               <options/>
+               <command_groups>
+                  <command_group name="DCD Commands" enabled="true">
+                     <commands/>
+                  </command_group>
+               </command_groups>
+            </dcdx_configuration>
+         </dcdx_configurations>
+      </dcd>
+      <ivt name="IVT" version="1.0" enabled="true" update_project_code="true">
+         <generated_project_files>
+            <file path="board/ivt_config.c" update_enabled="true"/>
+         </generated_project_files>
+         <ivt_profile>
+            <processor_version>N/A</processor_version>
+         </ivt_profile>
+         <ivt_records>
+            <ivt_pointers>
+               <ivt_pointer id="" index="0" name="CM7_0 Application" size="4" start_address="0x400100" file_path="N/A" locked="false" reserved="false" sign_image="false">
+                  <custom_fields/>
+               </ivt_pointer>
+               <ivt_pointer id="" index="1" name="CM7_1 Application" size="4" start_address="0x400180" file_path="N/A" locked="false" reserved="true" sign_image="false">
+                  <custom_fields/>
+               </ivt_pointer>
+               <ivt_pointer id="" index="2" name="CM7_2 application" size="4" start_address="0x400200" file_path="N/A" locked="false" reserved="true" sign_image="false">
+                  <custom_fields/>
+               </ivt_pointer>
+               <ivt_pointer id="" index="3" name="CM7_3 application" size="4" start_address="0x400280" file_path="N/A" locked="false" reserved="true" sign_image="false">
+                  <custom_fields/>
+               </ivt_pointer>
+               <ivt_pointer id="" index="4" name="HSE_B Firmware Image" size="4" start_address="0x400380" file_path="N/A" locked="false" reserved="true" sign_image="false">
+                  <custom_fields/>
+               </ivt_pointer>
+               <ivt_pointer id="" index="5" name="AppBL" size="4" start_address="0x400300" file_path="N/A" locked="false" reserved="true" sign_image="false">
+                  <custom_fields>
+                     <custom_field name="gmac_iv_app_bl" value="" disabled="true"/>
+                  </custom_fields>
+               </ivt_pointer>
+               <ivt_pointer id="" index="6" name="Recovery Application" size="4" start_address="0x400400" file_path="N/A" locked="false" reserved="true" sign_image="false">
+                  <custom_fields>
+                     <custom_field name="gmac_iv_recovery_app" value="" disabled="true"/>
+                  </custom_fields>
+               </ivt_pointer>
+            </ivt_pointers>
+            <ivt_image start_address="0x400000" locked="false" sign_image="false">
+               <custom_fields>
+                  <custom_field name="gmac_iv_ivt_image" value="" disabled="true"/>
+               </custom_fields>
+            </ivt_image>
+            <automatic_align start_address="0x400000"/>
+            <struct>
+               <struct name="boot_config">
+                  <setting>
+                     <setting name="cm7_0" value="true"/>
+                     <setting name="cm7_1" value="false"/>
+                     <setting name="cm7_2" value="false"/>
+                     <setting name="cm7_3" value="false"/>
+                     <setting name="secured_boot" value="false"/>
+                     <setting name="app_swt_init" value="false"/>
+                     <setting name="split_lock" value="false"/>
+                     <setting name="pll" value="false"/>
+                     <setting name="secure_recovery_disable" value="false"/>
+                     <setting name="reset_recovery" value="false"/>
+                     <setting name="hse_firmware_feature" value="false"/>
+                  </setting>
+                  <arrays/>
+                  <child_structs/>
+               </struct>
+               <struct name="interface_selection">
+                  <setting>
+                     <setting name="device_type" value="QuadSPI Serial Flash"/>
+                  </setting>
+                  <arrays/>
+                  <child_structs/>
+               </struct>
+               <struct name="life_cycle_config">
+                  <setting>
+                     <setting name="life_cycle" value="Keep existing configuration"/>
+                     <setting name="life_cycle_address" value="0x400000" locked="false"/>
+                  </setting>
+                  <arrays/>
+                  <child_structs/>
+               </struct>
+               <struct name="gmac_generation">
+                  <setting>
+                     <setting name="random_gmac_iv" value="false"/>
+                     <setting name="key_type" value="Plain ADKP"/>
+                     <setting name="adkp_file" value="N/A"/>
+                  </setting>
+                  <arrays/>
+                  <child_structs/>
+               </struct>
+            </struct>
+            <ivt_flash image_path="" algorithm_name="" port=""/>
+         </ivt_records>
+      </ivt>
+      <quadspi name="QuadSPI" version="1.0" enabled="false" update_project_code="true">
+         <generated_project_files/>
+         <quadspi_profile>
+            <processor_version>N/A</processor_version>
+         </quadspi_profile>
+      </quadspi>
+      <efuse name="eFUSE" version="1.0" enabled="false" update_project_code="true">
+         <efuse_profile>
+            <processor_version>N/A</processor_version>
+         </efuse_profile>
+      </efuse>
+      <gtm name="GTM" version="1.0" enabled="false" update_project_code="true">
+         <generated_project_files/>
+         <gtm_profile>
+            <processor_version>N/A</processor_version>
+         </gtm_profile>
+      </gtm>
+      <ice name="ICE" version="1.0" enabled="false" update_project_code="true">
+         <ice_profile>
+            <processor_version>N/A</processor_version>
+         </ice_profile>
+      </ice>
+      <periphs name="Peripherals" version="15.0" enabled="true" update_project_code="true">
+         <dependencies>
+            <dependency resourceType="SWComponent" resourceId="platform.driver.osif" description="osif is not found in the toolchain/IDE project. The project will not compile!" problem_level="2" source="Peripherals">
+               <feature name="enabled" evaluation="equal">
+                  <data type="Boolean">true</data>
+               </feature>
+            </dependency>
+            <dependency resourceType="SWComponent" resourceId="platform.driver.osif" description="An unsupported version of the osif in the toolchain/IDE project. Required: ${required_value}, actual: ${actual_value}. The project might not compile correctly." problem_level="1" source="Peripherals">
+               <feature name="version" evaluation="equivalent">
+                  <data type="Version">1.0.0</data>
+               </feature>
+            </dependency>
+            <dependency resourceType="SWComponent" resourceId="platform.driver.siul2_port" description="siul2_port is not found in the toolchain/IDE project. The project will not compile!" problem_level="2" source="Peripherals">
+               <feature name="enabled" evaluation="equal">
+                  <data type="Boolean">true</data>
+               </feature>
+            </dependency>
+            <dependency resourceType="SWComponent" resourceId="platform.driver.siul2_port" description="An unsupported version of the siul2_port in the toolchain/IDE project. Required: ${required_value}, actual: ${actual_value}. The project might not compile correctly." problem_level="1" source="Peripherals">
+               <feature name="version" evaluation="equivalent">
+                  <data type="Version">1.0.0</data>
+               </feature>
+            </dependency>
+            <dependency resourceType="SWComponent" resourceId="platform.driver.FlexCAN" description="FlexCAN is not found in the toolchain/IDE project. The project will not compile!" problem_level="2" source="Peripherals">
+               <feature name="enabled" evaluation="equal">
+                  <data type="Boolean">true</data>
+               </feature>
+            </dependency>
+            <dependency resourceType="SWComponent" resourceId="platform.driver.FlexCAN" description="An unsupported version of the FlexCAN in the toolchain/IDE project. Required: ${required_value}, actual: ${actual_value}. The project might not compile correctly." problem_level="1" source="Peripherals">
+               <feature name="version" evaluation="equivalent">
+                  <data type="Version">0.1.0</data>
+               </feature>
+            </dependency>
+            <dependency resourceType="SWComponent" resourceId="platform.driver.IntCtrl_Ip" description="IntCtrl_Ip is not found in the toolchain/IDE project. The project will not compile!" problem_level="2" source="Peripherals">
+               <feature name="enabled" evaluation="equal">
+                  <data type="Boolean">true</data>
+               </feature>
+            </dependency>
+            <dependency resourceType="SWComponent" resourceId="platform.driver.IntCtrl_Ip" description="An unsupported version of the IntCtrl_Ip in the toolchain/IDE project. Required: ${required_value}, actual: ${actual_value}. The project might not compile correctly." problem_level="1" source="Peripherals">
+               <feature name="version" evaluation="equivalent">
+                  <data type="Version">1.0.0</data>
+               </feature>
+            </dependency>
+            <dependency resourceType="SWComponent" resourceId="platform.driver.siul2_dio" description="siul2_dio is not found in the toolchain/IDE project. The project will not compile!" problem_level="2" source="Peripherals">
+               <feature name="enabled" evaluation="equal">
+                  <data type="Boolean">true</data>
+               </feature>
+            </dependency>
+            <dependency resourceType="SWComponent" resourceId="platform.driver.siul2_dio" description="An unsupported version of the siul2_dio in the toolchain/IDE project. Required: ${required_value}, actual: ${actual_value}. The project might not compile correctly." problem_level="1" source="Peripherals">
+               <feature name="version" evaluation="equivalent">
+                  <data type="Version">1.0.0</data>
+               </feature>
+            </dependency>
+            <dependency resourceType="SWComponent" resourceId="platform.driver.lpi2c" description="Lpi2c is not found in the toolchain/IDE project. The project will not compile!" problem_level="2" source="Peripherals">
+               <feature name="enabled" evaluation="equal">
+                  <data type="Boolean">true</data>
+               </feature>
+            </dependency>
+            <dependency resourceType="SWComponent" resourceId="platform.driver.lpi2c" description="An unsupported version of the Lpi2c in the toolchain/IDE project. Required: ${required_value}, actual: ${actual_value}. The project might not compile correctly." problem_level="1" source="Peripherals">
+               <feature name="version" evaluation="equivalent">
+                  <data type="Version">1.0.0</data>
+               </feature>
+            </dependency>
+            <dependency resourceType="SWComponent" resourceId="platform.driver.lpuart_uart" description="Lpuart_Uart is not found in the toolchain/IDE project. The project will not compile!" problem_level="2" source="Peripherals">
+               <feature name="enabled" evaluation="equal">
+                  <data type="Boolean">true</data>
+               </feature>
+            </dependency>
+            <dependency resourceType="SWComponent" resourceId="platform.driver.lpuart_uart" description="An unsupported version of the Lpuart_Uart in the toolchain/IDE project. Required: ${required_value}, actual: ${actual_value}. The project might not compile correctly." problem_level="1" source="Peripherals">
+               <feature name="version" evaluation="equivalent">
+                  <data type="Version">1.0.0</data>
+               </feature>
+            </dependency>
+            <dependency resourceType="Tool" resourceId="Clocks" description="The Clocks tool is required by the Peripherals tool, but it is disabled." problem_level="2" source="Peripherals">
+               <feature name="enabled" evaluation="equal">
+                  <data>true</data>
+               </feature>
+            </dependency>
+         </dependencies>
+         <generated_project_files>
+            <file path="generate/include/DeviceDefinition.h" update_enabled="true"/>
+            <file path="generate/include/FlexCAN_Ip_Cfg.h" update_enabled="true"/>
+            <file path="generate/include/FlexCAN_Ip_CfgDefines.h" update_enabled="true"/>
+            <file path="generate/include/FlexCAN_Ip_Sa_PBcfg.h" update_enabled="true"/>
+            <file path="generate/include/IntCtrl_Ip_Cfg.h" update_enabled="true"/>
+            <file path="generate/include/IntCtrl_Ip_CfgDefines.h" update_enabled="true"/>
+            <file path="generate/include/Lpi2c_Ip_Cfg.h" update_enabled="true"/>
+            <file path="generate/include/Lpi2c_Ip_CfgDefines.h" update_enabled="true"/>
+            <file path="generate/include/Lpi2c_Ip_Sa_PBcfg.h" update_enabled="true"/>
+            <file path="generate/include/Lpuart_Uart_Ip_Cfg.h" update_enabled="true"/>
+            <file path="generate/include/Lpuart_Uart_Ip_Defines.h" update_enabled="true"/>
+            <file path="generate/include/Lpuart_Uart_Ip_Sa_PBcfg.h" update_enabled="true"/>
+            <file path="generate/include/OsIf_ArchCfg.h" update_enabled="true"/>
+            <file path="generate/include/OsIf_Cfg.h" update_enabled="true"/>
+            <file path="generate/include/Siul2_Dio_Ip_Cfg.h" update_enabled="true"/>
+            <file path="generate/include/Siul2_Port_Ip_Defines.h" update_enabled="true"/>
+            <file path="generate/include/Soc_Ips.h" update_enabled="true"/>
+            <file path="generate/include/modules.h" update_enabled="true"/>
+            <file path="generate/src/FlexCAN_Ip_Sa_PBcfg.c" update_enabled="true"/>
+            <file path="generate/src/IntCtrl_Ip_Cfg.c" update_enabled="true"/>
+            <file path="generate/src/Lpi2c_Ip_Sa_PBcfg.c" update_enabled="true"/>
+            <file path="generate/src/Lpuart_Uart_Ip_Sa_PBcfg.c" update_enabled="true"/>
+            <file path="generate/src/OsIf_Cfg.c" update_enabled="true"/>
+         </generated_project_files>
+         <peripherals_profile>
+            <processor_version>0.0.0</processor_version>
+         </peripherals_profile>
+         <functional_groups>
+            <functional_group name="BOARD_InitPeripherals" uuid="58e85d4e-d53b-4783-9bef-ac2c1ec2b011" called_from_default_init="true" id_prefix="" core="M7_0_0">
+               <description></description>
+               <options/>
+               <dependencies/>
+               <instances>
+                  <instance name="BaseNXP" uuid="7c764d06-8ed6-43d9-86ff-92eea1f180c4" type="BaseNXP" type_id="Base" mode="general" enabled="true" comment="" custom_name_enabled="false" editing_lock="false">
+                     <config_set name="BaseNXP">
+                        <setting name="Name" value="BaseNXP"/>
+                        <struct name="ConfigTimeSupport">
+                           <setting name="POST_BUILD_VARIANT_USED" value="false"/>
+                           <setting name="IMPLEMENTATION_CONFIG_VARIANT" value="VARIANT-PRE-COMPILE"/>
+                        </struct>
+                        <struct name="OsIfGeneral">
+                           <setting name="Name" value="OsIfGeneral"/>
+                           <setting name="OsIfMulticoreSupport" value="false"/>
+                           <setting name="OsIfEnableUserModeSupport" value="false"/>
+                           <setting name="OsIfDevErrorDetect" value="true"/>
+                           <setting name="OsIfUseSystemTimer" value="false"/>
+                           <setting name="OsIfUseCustomTimer" value="false"/>
+                           <setting name="OsIfUseGetUserId" value="GET_CORE_ID"/>
+                           <setting name="OsIfInstanceId" value="0"/>
+                           <setting name="OsIfGetPhysicalCoreIdEnable" value="false"/>
+                           <setting name="OsIfSoftwareSemaphoredEnable" value="false"/>
+                           <struct name="OsIfOperatingSystemType">
+                              <setting name="Name" value="OsIfOperatingSystemType"/>
+                              <setting name="Choice" value="OsIfBaremetalType"/>
+                              <struct name="OsIfBaremetalType">
+                                 <setting name="Name" value="OsIfOperatingSystemType"/>
+                              </struct>
+                           </struct>
+                           <array name="OsIfEcucPartitionRef"/>
+                           <array name="OsIfCounterConfig"/>
+                        </struct>
+                        <struct name="CommonPublishedInformation">
+                           <setting name="Name" value="CommonPublishedInformation"/>
+                           <setting name="ModuleId" value="0"/>
+                           <setting name="VendorId" value="43"/>
+                           <array name="VendorApiInfix"/>
+                           <setting name="ArReleaseMajorVersion" value="4"/>
+                           <setting name="ArReleaseMinorVersion" value="7"/>
+                           <setting name="ArReleaseRevisionVersion" value="0"/>
+                           <setting name="SwMajorVersion" value="5"/>
+                           <setting name="SwMinorVersion" value="0"/>
+                           <setting name="SwPatchVersion" value="0"/>
+                        </struct>
+                     </config_set>
+                  </instance>
+                  <instance name="Siul2_Port" uuid="88b332c7-a863-4576-8896-2c9a4a10e806" type="Siul2_Port" type_id="Siul2_Port" mode="ip" enabled="true" comment="" custom_name_enabled="false" editing_lock="false">
+                     <config_set name="Siul2_Port" quick_selection="Siul2PortDefault">
+                        <setting name="Name" value="Siul2_Port"/>
+                        <struct name="ConfigTimeSupport">
+                           <setting name="POST_BUILD_VARIANT_USED" value="false"/>
+                           <setting name="IMPLEMENTATION_CONFIG_VARIANT" value="VARIANT-PRE-COMPILE"/>
+                        </struct>
+                        <struct name="PortGeneral">
+                           <setting name="Name" value="PortGeneral"/>
+                           <setting name="SIUL2PortIPDevErrorDetect" value="true"/>
+                           <setting name="PortEnableUserModeSupport" value="false"/>
+                        </struct>
+                        <struct name="PortConfigSet">
+                           <setting name="Name" value="PortConfigSet"/>
+                           <array name="PortContainer">
+                              <struct name="0">
+                                 <setting name="Name" value="PortContainer_0"/>
+                                 <array name="PortPin">
+                                    <struct name="0">
+                                       <setting name="Name" value="PortPin_0"/>
+                                       <setting name="PortPinPue" value="false"/>
+                                       <setting name="PortPinPus" value="false"/>
+                                       <setting name="PortPinSafeMode" value="false"/>
+                                       <setting name="PortPinDse" value="false"/>
+                                       <setting name="PortPinWithReadBack" value="false"/>
+                                       <setting name="PortPinPke" value="false"/>
+                                       <setting name="PortPinIfe" value="false"/>
+                                       <setting name="PortPinDirectionChangeable" value="true"/>
+                                       <setting name="PortPinModeChangeable" value="true"/>
+                                       <setting name="PortPinInvertControl" value="false"/>
+                                       <setting name="PortPinSiul2Instance" value="SIUL2_0"/>
+                                       <setting name="PortPinId" value="1"/>
+                                       <setting name="PortPinInitialMode" value="PORT_GPIO_MODE"/>
+                                    </struct>
+                                    <struct name="1">
+                                       <setting name="Name" value="PortPin_1"/>
+                                       <setting name="PortPinPue" value="false"/>
+                                       <setting name="PortPinPus" value="false"/>
+                                       <setting name="PortPinSafeMode" value="false"/>
+                                       <setting name="PortPinDse" value="false"/>
+                                       <setting name="PortPinWithReadBack" value="false"/>
+                                       <setting name="PortPinPke" value="false"/>
+                                       <setting name="PortPinIfe" value="false"/>
+                                       <setting name="PortPinDirectionChangeable" value="true"/>
+                                       <setting name="PortPinModeChangeable" value="true"/>
+                                       <setting name="PortPinInvertControl" value="false"/>
+                                       <setting name="PortPinSiul2Instance" value="SIUL2_0"/>
+                                       <setting name="PortPinId" value="2"/>
+                                       <setting name="PortPinInitialMode" value="PORT_GPIO_MODE"/>
+                                    </struct>
+                                    <struct name="2">
+                                       <setting name="Name" value="PortPin_2"/>
+                                       <setting name="PortPinPue" value="false"/>
+                                       <setting name="PortPinPus" value="false"/>
+                                       <setting name="PortPinSafeMode" value="false"/>
+                                       <setting name="PortPinDse" value="false"/>
+                                       <setting name="PortPinWithReadBack" value="false"/>
+                                       <setting name="PortPinPke" value="false"/>
+                                       <setting name="PortPinIfe" value="false"/>
+                                       <setting name="PortPinDirectionChangeable" value="true"/>
+                                       <setting name="PortPinModeChangeable" value="true"/>
+                                       <setting name="PortPinInvertControl" value="false"/>
+                                       <setting name="PortPinSiul2Instance" value="SIUL2_0"/>
+                                       <setting name="PortPinId" value="3"/>
+                                       <setting name="PortPinInitialMode" value="PORT_GPIO_MODE"/>
+                                    </struct>
+                                    <struct name="3">
+                                       <setting name="Name" value="PortPin_3"/>
+                                       <setting name="PortPinPue" value="false"/>
+                                       <setting name="PortPinPus" value="false"/>
+                                       <setting name="PortPinSafeMode" value="false"/>
+                                       <setting name="PortPinDse" value="false"/>
+                                       <setting name="PortPinWithReadBack" value="false"/>
+                                       <setting name="PortPinPke" value="false"/>
+                                       <setting name="PortPinIfe" value="false"/>
+                                       <setting name="PortPinDirectionChangeable" value="true"/>
+                                       <setting name="PortPinModeChangeable" value="true"/>
+                                       <setting name="PortPinInvertControl" value="false"/>
+                                       <setting name="PortPinSiul2Instance" value="SIUL2_0"/>
+                                       <setting name="PortPinId" value="4"/>
+                                       <setting name="PortPinInitialMode" value="PORT_GPIO_MODE"/>
+                                    </struct>
+                                    <struct name="4">
+                                       <setting name="Name" value="PortPin_4"/>
+                                       <setting name="PortPinPue" value="false"/>
+                                       <setting name="PortPinPus" value="false"/>
+                                       <setting name="PortPinSafeMode" value="false"/>
+                                       <setting name="PortPinDse" value="false"/>
+                                       <setting name="PortPinWithReadBack" value="false"/>
+                                       <setting name="PortPinPke" value="false"/>
+                                       <setting name="PortPinIfe" value="false"/>
+                                       <setting name="PortPinDirectionChangeable" value="true"/>
+                                       <setting name="PortPinModeChangeable" value="true"/>
+                                       <setting name="PortPinInvertControl" value="false"/>
+                                       <setting name="PortPinSiul2Instance" value="SIUL2_0"/>
+                                       <setting name="PortPinId" value="5"/>
+                                       <setting name="PortPinInitialMode" value="PORT_GPIO_MODE"/>
+                                    </struct>
+                                    <struct name="5">
+                                       <setting name="Name" value="PortPin_5"/>
+                                       <setting name="PortPinPue" value="false"/>
+                                       <setting name="PortPinPus" value="false"/>
+                                       <setting name="PortPinSafeMode" value="false"/>
+                                       <setting name="PortPinDse" value="false"/>
+                                       <setting name="PortPinWithReadBack" value="false"/>
+                                       <setting name="PortPinPke" value="false"/>
+                                       <setting name="PortPinIfe" value="false"/>
+                                       <setting name="PortPinDirectionChangeable" value="true"/>
+                                       <setting name="PortPinModeChangeable" value="true"/>
+                                       <setting name="PortPinInvertControl" value="false"/>
+                                       <setting name="PortPinSiul2Instance" value="SIUL2_0"/>
+                                       <setting name="PortPinId" value="6"/>
+                                       <setting name="PortPinInitialMode" value="PORT_GPIO_MODE"/>
+                                    </struct>
+                                    <struct name="6">
+                                       <setting name="Name" value="PortPin_6"/>
+                                       <setting name="PortPinPue" value="false"/>
+                                       <setting name="PortPinPus" value="false"/>
+                                       <setting name="PortPinSafeMode" value="false"/>
+                                       <setting name="PortPinDse" value="false"/>
+                                       <setting name="PortPinWithReadBack" value="false"/>
+                                       <setting name="PortPinPke" value="false"/>
+                                       <setting name="PortPinIfe" value="false"/>
+                                       <setting name="PortPinDirectionChangeable" value="true"/>
+                                       <setting name="PortPinModeChangeable" value="true"/>
+                                       <setting name="PortPinInvertControl" value="false"/>
+                                       <setting name="PortPinSiul2Instance" value="SIUL2_0"/>
+                                       <setting name="PortPinId" value="7"/>
+                                       <setting name="PortPinInitialMode" value="PORT_GPIO_MODE"/>
+                                    </struct>
+                                    <struct name="7">
+                                       <setting name="Name" value="PortPin_7"/>
+                                       <setting name="PortPinPue" value="false"/>
+                                       <setting name="PortPinPus" value="false"/>
+                                       <setting name="PortPinSafeMode" value="false"/>
+                                       <setting name="PortPinDse" value="false"/>
+                                       <setting name="PortPinWithReadBack" value="false"/>
+                                       <setting name="PortPinPke" value="false"/>
+                                       <setting name="PortPinIfe" value="false"/>
+                                       <setting name="PortPinDirectionChangeable" value="true"/>
+                                       <setting name="PortPinModeChangeable" value="true"/>
+                                       <setting name="PortPinInvertControl" value="false"/>
+                                       <setting name="PortPinSiul2Instance" value="SIUL2_0"/>
+                                       <setting name="PortPinId" value="8"/>
+                                       <setting name="PortPinInitialMode" value="PORT_GPIO_MODE"/>
+                                    </struct>
+                                    <struct name="8">
+                                       <setting name="Name" value="PortPin_8"/>
+                                       <setting name="PortPinPue" value="false"/>
+                                       <setting name="PortPinPus" value="false"/>
+                                       <setting name="PortPinSafeMode" value="false"/>
+                                       <setting name="PortPinDse" value="false"/>
+                                       <setting name="PortPinWithReadBack" value="false"/>
+                                       <setting name="PortPinPke" value="false"/>
+                                       <setting name="PortPinIfe" value="false"/>
+                                       <setting name="PortPinDirectionChangeable" value="true"/>
+                                       <setting name="PortPinModeChangeable" value="true"/>
+                                       <setting name="PortPinInvertControl" value="false"/>
+                                       <setting name="PortPinSiul2Instance" value="SIUL2_0"/>
+                                       <setting name="PortPinId" value="9"/>
+                                       <setting name="PortPinInitialMode" value="PORT_GPIO_MODE"/>
+                                    </struct>
+                                 </array>
+                              </struct>
+                           </array>
+                        </struct>
+                     </config_set>
+                  </instance>
+                  <instance name="FlexCAN" uuid="2b3c05b3-d0dc-4682-994d-77adf659ed6f" type="FlexCAN" type_id="FlexCAN" mode="ip" enabled="true" comment="" custom_name_enabled="false" editing_lock="false">
+                     <config_set name="FlexCAN">
+                        <setting name="Name" value="FlexCAN"/>
+                        <struct name="ConfigTimeSupport">
+                           <setting name="POST_BUILD_VARIANT_USED" value="false"/>
+                           <setting name="IMPLEMENTATION_CONFIG_VARIANT" value="VARIANT-PRE-COMPILE"/>
+                        </struct>
+                        <array name="FlexCAN_Configurations">
+                           <struct name="0">
+                              <setting name="CanHwChannel" value="FLEXCAN_0"/>
+                              <setting name="Name" value="FlexCAN_Config0"/>
+                              <setting name="max_num_mb" value="16"/>
+                              <setting name="num_id_filters" value="FLEXCAN_RX_FIFO_ID_FILTERS_8"/>
+                              <setting name="is_rx_fifo_needed" value="false"/>
+                              <setting name="fd_enable" value="false"/>
+                              <setting name="flexcanMode" value="FLEXCAN_NORMAL_MODE"/>
+                              <struct name="FlexCANRamBlock">
+                                 <setting name="Choice" value="FlexCANRamBlockUnified"/>
+                                 <struct name="FlexCANRamBlockUnified">
+                                    <setting name="RamBlockUnifiedPayloadLength" value="FLEXCAN_PAYLOAD_SIZE_8"/>
+                                 </struct>
+                              </struct>
+                              <setting name="transfer_type" value="FLEXCAN_RXFIFO_USING_INTERRUPTS"/>
+                              <setting name="rxFifoDMAChannel" value="0"/>
+                              <setting name="extCbtEnable" value="false"/>
+                              <setting name="bitRateSwitch" value="false"/>
+                              <setting name="CanControllerFdISO" value="false"/>
+                              <setting name="CanControllerAutoBusOff" value="false"/>
+                              <setting name="CanRemoteRequestStore" value="false"/>
+                              <setting name="CanLowestBufferTransmittedFirst" value="false"/>
+                              <setting name="timeStampSurce" value="FLEXCAN_CAN_CLK_TIMESTAMP_SRC"/>
+                              <setting name="msgBuffTimeStampType" value="FLEXCAN_MSGBUFFTIMESTAMP_TIMER"/>
+                              <setting name="hrConfigType" value="FLEXCAN_TIMESTAMPCAPTURE_DISABLE"/>
+                              <setting name="pe_clock_frequency" value="48000000"/>
+                              <struct name="flexcan_time_segment">
+                                 <setting name="Name" value="FlexCAN_Ip_TimeSeg0"/>
+                                 <setting name="flexcan_cfg_propSeg" value="7"/>
+                                 <setting name="flexcan_cfg_phaseSeg1" value="5"/>
+                                 <setting name="flexcan_cfg_phaseSeg2" value="3"/>
+                                 <setting name="flexcan_cfg_preDivider" value="6"/>
+                                 <setting name="flexcan_cfg_rJumpwidth" value="1"/>
+                              </struct>
+                              <struct name="flexcan_time_segment_cbt">
+                                 <setting name="Name" value="FlexCAN_Ip_TimeSegCBT0"/>
+                                 <setting name="flexcan_cfg_propSeg" value="7"/>
+                                 <setting name="flexcan_cfg_phaseSeg1" value="6"/>
+                                 <setting name="flexcan_cfg_phaseSeg2" value="2"/>
+                                 <setting name="flexcan_cfg_preDivider" value="5"/>
+                                 <setting name="flexcan_cfg_rJumpwidth" value="2"/>
+                              </struct>
+                              <setting name="FlexCanCallback" value="NULL_PTR"/>
+                              <setting name="FlexCanErrorCallback" value="NULL_PTR"/>
+                              <setting name="num_enhanced_std_id_filters" value="0"/>
+                              <setting name="num_enhanced_ext_id_filters" value="0"/>
+                              <setting name="num_enhanced_watermark" value="0"/>
+                              <setting name="is_enhanced_rx_fifo_needed" value="false"/>
+                           </struct>
+                        </array>
+                        <struct name="FlexCAN_General">
+                           <setting name="Name" value="FlexCAN_General"/>
+                           <setting name="FlexCANEnableUserModeSupport" value="false"/>
+                           <setting name="FlexCANIpDevErrorDetect" value="true"/>
+                           <setting name="FlexCANEnableTimeStampSupport" value="false"/>
+                           <setting name="hrSrc" value="FLEXCAN_HRTIMERSRC_EMAC"/>
+                           <setting name="is_memory_error_detection_and_correction_enabled" value="false"/>
+                           <setting name="memory_error_response" value="FLEXCAN_NORMAL_MODE"/>
+                        </struct>
+                        <struct name="timeout">
+                           <setting name="Name" value="FlexCAN_Timeout"/>
+                           <setting name="timeout_type" value="OSIF_COUNTER_DUMMY"/>
+                           <setting name="timeout_value" value="10000"/>
+                        </struct>
+                     </config_set>
+                  </instance>
+                  <instance name="IntCtrl_Ip" uuid="b6bdeac8-3652-47da-8d61-cbbd247b2ce9" type="IntCtrl_Ip" type_id="IntCtrl_Ip" mode="ip" enabled="true" comment="" custom_name_enabled="false" editing_lock="false">
+                     <config_set name="IntCtrl_Ip">
+                        <setting name="Name" value="IntCtrl_Ip"/>
+                        <struct name="ConfigTimeSupport">
+                           <setting name="POST_BUILD_VARIANT_USED" value="false"/>
+                           <setting name="IMPLEMENTATION_CONFIG_VARIANT" value="VARIANT-PRE-COMPILE"/>
+                        </struct>
+                        <struct name="IntCtrlConfigGeneral">
+                           <setting name="Name" value="IntCtrlConfigGeneral"/>
+                           <setting name="IntCtrlDevErrorDetect" value="true"/>
+                           <setting name="PlatformEnableUserModeSupport" value="false"/>
+                           <setting name="IntctrlEnableMSIConfiguration" value="false"/>
+                        </struct>
+                        <array name="IntCtrlConfig">
+                           <struct name="0">
+                              <setting name="Name" value="IntCtrlConfig_0"/>
+                              <array name="PlatformIsrConfig">
+                                 <struct name="0">
+                                    <setting name="Name" value="PlatformIsrConfig_0"/>
+                                    <setting name="IsrName" value="LPUART9_IRQn"/>
+                                    <setting name="IsrEnabled" value="true"/>
+                                    <setting name="IsrPriority" value="0"/>
+                                    <setting name="IsrHandler" value="undefined_handler"/>
+                                 </struct>
+                                 <struct name="1">
+                                    <setting name="Name" value="PlatformIsrConfig_1"/>
+                                    <setting name="IsrName" value="LPUART8_IRQn"/>
+                                    <setting name="IsrEnabled" value="true"/>
+                                    <setting name="IsrPriority" value="0"/>
+                                    <setting name="IsrHandler" value="undefined_handler"/>
+                                 </struct>
+                              </array>
+                           </struct>
+                        </array>
+                     </config_set>
+                  </instance>
+                  <instance name="Siul2_Dio" uuid="b3804ddf-031b-4c9f-a537-6d1a065f9014" type="Siul2_Dio" type_id="Siul2_Dio" mode="ip" enabled="true" comment="" custom_name_enabled="false" editing_lock="false">
+                     <config_set name="Siul2_Dio" quick_selection="Siul2DiotDefault">
+                        <setting name="Name" value="Siul2_Dio"/>
+                        <struct name="ConfigTimeSupport">
+                           <setting name="POST_BUILD_VARIANT_USED" value="false"/>
+                           <setting name="IMPLEMENTATION_CONFIG_VARIANT" value="VARIANT-PRE-COMPILE"/>
+                        </struct>
+                        <struct name="DioGeneral">
+                           <setting name="Name" value="DioGeneral"/>
+                           <setting name="SIUL2DioIPDevErrorDetect" value="true"/>
+                        </struct>
+                     </config_set>
+                  </instance>
+                  <instance name="Lpi2c" uuid="d974f7e8-662e-4fd2-85d2-00a290adc788" type="Lpi2c" type_id="Lpi2c" mode="lpi2c" enabled="true" comment="" custom_name_enabled="false" editing_lock="false">
+                     <config_set name="Lpi2c" quick_selection="flexio_mcl_default">
+                        <setting name="Name" value="Lpi2c"/>
+                        <struct name="ConfigTimeSupport">
+                           <setting name="POST_BUILD_VARIANT_USED" value="false"/>
+                           <setting name="IMPLEMENTATION_CONFIG_VARIANT" value="VARIANT-POST-BUILD"/>
+                        </struct>
+                        <struct name="GeneralConfiguration">
+                           <setting name="Name" value="GeneralConfiguration"/>
+                           <setting name="I2cEnableUserModeSupport" value="false"/>
+                           <setting name="I2cDevErrorDetect" value="false"/>
+                           <setting name="I2cDmaUsed" value="false"/>
+                           <setting name="I2c_ErrorCallback" value="false"/>
+                           <setting name="I2cTimeoutMethod" value="OSIF_COUNTER_DUMMY"/>
+                        </struct>
+                        <struct name="I2cGlobalConfig" quick_selection="Default">
+                           <setting name="Name" value="I2cGlobalConfig"/>
+                           <array name="I2cChannel"/>
+                        </struct>
+                     </config_set>
+                  </instance>
+                  <instance name="Lpuart_Uart" uuid="ad63e88e-0a2a-4b84-8b4b-1738395d24cf" type="Lpuart_Uart" type_id="Lpuart_Uart" mode="ip" enabled="true" comment="" custom_name_enabled="false" editing_lock="false">
+                     <config_set name="Lpuart_Uart">
+                        <setting name="Name" value="Lpuart_Uart"/>
+                        <struct name="ConfigTimeSupport" quick_selection="Default">
+                           <setting name="POST_BUILD_VARIANT_USED" value="false"/>
+                           <setting name="IMPLEMENTATION_CONFIG_VARIANT" value="VARIANT-PRE-COMPILE"/>
+                        </struct>
+                        <struct name="GeneralConfiguration" quick_selection="Default">
+                           <setting name="Name" value="GeneralConfiguration"/>
+                           <setting name="UartDevErrorDetect" value="true"/>
+                           <setting name="UartTimeoutMethod" value="OSIF_COUNTER_DUMMY"/>
+                           <setting name="UartTimeoutDuration" value="0"/>
+                           <setting name="UartDmaEnable" value="false"/>
+                           <setting name="UartCallbackCapability" value="false"/>
+                           <array name="UartCallback">
+                              <setting name="0" value=""/>
+                           </array>
+                           <array name="UartCallbackParam"/>
+                        </struct>
+                        <struct name="UartGlobalConfig">
+                           <setting name="Name" value="UartGlobalConfig"/>
+                           <array name="UartChannel">
+                              <struct name="0">
+                                 <setting name="Name" value="UartChannel_0"/>
+                                 <setting name="UartHwUsing" value="LPUART_IP"/>
+                                 <setting name="UartClockFunctionalGroupRef" value="ClockConfig0"/>
+                                 <struct name="DetailModuleConfiguration">
+                                    <setting name="Name" value="DetailModuleConfiguration"/>
+                                    <setting name="UartHwChannel" value="LPUART_0"/>
+                                    <setting name="DesireBaudrate" value="LPUART_UART_BAUDRATE_115200"/>
+                                    <setting name="CustomBaudrateMantissa" value="1"/>
+                                    <setting name="CustomBaudrateDivisor" value="4"/>
+                                    <setting name="UartInteruptDmaMethod" value="LPUART_UART_IP_USING_INTERRUPTS"/>
+                                    <array name="UartDmaTxChannelRef"/>
+                                    <array name="UartDmaRxChannelRef"/>
+                                    <setting name="UartParityType" value="LPUART_UART_IP_PARITY_DISABLED"/>
+                                    <setting name="UartStopBitNumber" value="LPUART_UART_IP_ONE_STOP_BIT"/>
+                                    <setting name="UartWordLength" value="LPUART_UART_IP_8_BITS_PER_CHAR"/>
+                                    <setting name="UartInternalLoopbackEnable" value="false"/>
+                                    <setting name="UartTimeoutEnable" value="false"/>
+                                 </struct>
+                              </struct>
+                              <struct name="1">
+                                 <setting name="Name" value="UartChannel_9"/>
+                                 <setting name="UartHwUsing" value="LPUART_IP"/>
+                                 <setting name="UartClockFunctionalGroupRef" value="ClockConfig0"/>
+                                 <struct name="DetailModuleConfiguration">
+                                    <setting name="Name" value="DetailModuleConfiguration"/>
+                                    <setting name="UartHwChannel" value="LPUART_9"/>
+                                    <setting name="DesireBaudrate" value="LPUART_UART_BAUDRATE_921600"/>
+                                    <setting name="CustomBaudrateMantissa" value="1"/>
+                                    <setting name="CustomBaudrateDivisor" value="4"/>
+                                    <setting name="UartInteruptDmaMethod" value="LPUART_UART_IP_USING_INTERRUPTS"/>
+                                    <array name="UartDmaTxChannelRef"/>
+                                    <array name="UartDmaRxChannelRef"/>
+                                    <setting name="UartParityType" value="LPUART_UART_IP_PARITY_DISABLED"/>
+                                    <setting name="UartStopBitNumber" value="LPUART_UART_IP_ONE_STOP_BIT"/>
+                                    <setting name="UartWordLength" value="LPUART_UART_IP_8_BITS_PER_CHAR"/>
+                                    <setting name="UartInternalLoopbackEnable" value="false"/>
+                                    <setting name="UartTimeoutEnable" value="false"/>
+                                 </struct>
+                              </struct>
+                              <struct name="2">
+                                 <setting name="Name" value="UartChannel_8"/>
+                                 <setting name="UartHwUsing" value="LPUART_IP"/>
+                                 <setting name="UartClockFunctionalGroupRef" value="ClockConfig0"/>
+                                 <struct name="DetailModuleConfiguration">
+                                    <setting name="Name" value="DetailModuleConfiguration"/>
+                                    <setting name="UartHwChannel" value="LPUART_8"/>
+                                    <setting name="DesireBaudrate" value="LPUART_UART_BAUDRATE_921600"/>
+                                    <setting name="CustomBaudrateMantissa" value="1"/>
+                                    <setting name="CustomBaudrateDivisor" value="4"/>
+                                    <setting name="UartInteruptDmaMethod" value="LPUART_UART_IP_USING_INTERRUPTS"/>
+                                    <array name="UartDmaTxChannelRef"/>
+                                    <array name="UartDmaRxChannelRef"/>
+                                    <setting name="UartParityType" value="LPUART_UART_IP_PARITY_DISABLED"/>
+                                    <setting name="UartStopBitNumber" value="LPUART_UART_IP_ONE_STOP_BIT"/>
+                                    <setting name="UartWordLength" value="LPUART_UART_IP_8_BITS_PER_CHAR"/>
+                                    <setting name="UartInternalLoopbackEnable" value="false"/>
+                                    <setting name="UartTimeoutEnable" value="false"/>
+                                 </struct>
+                              </struct>
+                           </array>
+                        </struct>
+                     </config_set>
+                  </instance>
+               </instances>
+            </functional_group>
+         </functional_groups>
+         <components>
+            <component name="system" uuid="c65a4b38-9d0c-45c5-82ce-c093b60357d8" type_id="system">
+               <config_set_global name="SystemModel" quick_selection="Default">
+                  <setting name="Name" value="SystemModel"/>
+                  <setting name="EcvdGenerationMethod" value="INDIVIDUAL"/>
+                  <setting name="EcvdOutputPath" value=""/>
+                  <setting name="EcvdGenerationTrigger" value="Generate Configuration"/>
+                  <setting name="SyncFunctionalGroups" value="true"/>
+                  <setting name="IgnoreComponentSuffix" value="true"/>
+                  <setting name="ComponentGenerationMethod" value="EcucPostBuildVariants"/>
+                  <setting name="DefaultFunctionalGroup" value="BOARD_InitPeripherals"/>
+                  <struct name="PostBuildSelectable" quick_selection="Default">
+                     <setting name="Name" value="PostBuildSelectable"/>
+                     <array name="PredefinedVariants">
+                        <struct name="0">
+                           <setting name="Name" value="BOARD_InitPeripherals"/>
+                           <setting name="Path" value="/system/SystemModel/PostBuildSelectable/BOARD_InitPeripherals"/>
+                           <array name="PostBuildVariantCriterionValues"/>
+                        </struct>
+                     </array>
+                  </struct>
+                  <struct name="Criterions" quick_selection="Default">
+                     <setting name="Name" value="Criterions"/>
+                     <array name="PostBuildVariantCriterions"/>
+                  </struct>
+               </config_set_global>
+            </component>
+         </components>
+      </periphs>
+   </tools>
+</configuration>
