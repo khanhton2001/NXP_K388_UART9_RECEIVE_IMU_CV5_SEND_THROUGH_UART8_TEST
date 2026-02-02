@@ -757,7 +757,7 @@ void extract_3floats_from_12bytes(const uint8_t *src, float dest[3])
 
 
 
-volatile uint8_t a0  ;
+	volatile uint8_t a0  ;
     volatile uint8_t a1  ;
     volatile uint8_t a2 ;
     volatile uint8_t a3 ;
@@ -1078,6 +1078,7 @@ int main(void)
                           float temp_accel[3] = {0.0f, 0.0f, 0.0f};
 
                           float temp_gyro[3]  = {0.0f, 0.0f, 0.0f};
+                          uint32_t t;
 
 
                       while(1)
@@ -1177,20 +1178,52 @@ int main(void)
 
 
 
+                        	             /* ---------- ACCEL ---------- */
+                        	             t = ((uint32_t)parser.buffer[20] << 24) |
+                        	                 ((uint32_t)parser.buffer[21] << 16) |
+                        	                 ((uint32_t)parser.buffer[22] << 8 ) |
+                        	                 ((uint32_t)parser.buffer[23]);
+                        	             memcpy(&accel_x, &t, 4);
 
 
 
 
-                        	        extract_3floats_from_12bytes(&parser.buffer[20], temp_accel);
-                        	        accel_x = temp_accel[0];
-                        	        accel_y = temp_accel[1];
-                        	         accel_z = temp_accel[2];
+                        	             t = ((uint32_t)parser.buffer[24] << 24) |
+                        	                 ((uint32_t)parser.buffer[25] << 16) |
+                        	                 ((uint32_t)parser.buffer[26] << 8 ) |
+                        	                 ((uint32_t)parser.buffer[27]);
+                        	             memcpy(&accel_y, &t, 4);
 
-                        	                               	        	            // Directly extract gyro from bytes 34 to 45
-                        	                               	        	            extract_3floats_from_12bytes(&parser.buffer[34], temp_gyro);
-                        	                               	        	            gyro_x = temp_gyro[0];
-                        	                               	        	            gyro_y = temp_gyro[1];
-                        	                               	        	            gyro_z = temp_gyro[2];
+                        	             t = ((uint32_t)parser.buffer[28] << 24) |
+                        	                 ((uint32_t)parser.buffer[29] << 16) |
+                        	                 ((uint32_t)parser.buffer[30] << 8 ) |
+                        	                 ((uint32_t)parser.buffer[31]);
+                        	             memcpy(&accel_z, &t, 4);
+
+
+                        	             /* ---------- GYRO ---------- */
+                        	             t = ((uint32_t)parser.buffer[34] << 24) |
+                        	                 ((uint32_t)parser.buffer[35] << 16) |
+                        	                 ((uint32_t)parser.buffer[36] << 8 ) |
+                        	                 ((uint32_t)parser.buffer[37]);
+                        	             memcpy(&gyro_x, &t, 4);
+
+                        	             t = ((uint32_t)parser.buffer[38] << 24) |
+                        	                 ((uint32_t)parser.buffer[39] << 16) |
+                        	                 ((uint32_t)parser.buffer[40] << 8 ) |
+                        	                 ((uint32_t)parser.buffer[41]);
+                        	             memcpy(&gyro_y, &t, 4);
+
+                        	             t = ((uint32_t)parser.buffer[42] << 24) |
+                        	                 ((uint32_t)parser.buffer[43] << 16) |
+                        	                 ((uint32_t)parser.buffer[44] << 8 ) |
+                        	                 ((uint32_t)parser.buffer[45]);
+                        	             memcpy(&gyro_z, &t, 4);
+
+
+
+
+
 
 
 
