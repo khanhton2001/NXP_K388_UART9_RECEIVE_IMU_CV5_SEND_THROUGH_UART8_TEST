@@ -15,6 +15,15 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+#include <inttypes.h>
+#include <stdarg.h>
+#include <stddef.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+
+
 #include "Clock_Ip.h"
 #include "FlexCAN_Ip.h"
 #include "IntCtrl_Ip.h"
@@ -79,6 +88,7 @@ typedef enum
 #define MIP_SYNC1 0x75
 #define MIP_SYNC2 0x65
 
+
 typedef enum {
     STATE_IDLE,
     STATE_SYNC1,
@@ -91,7 +101,7 @@ typedef enum {
 
 typedef struct {
     MipParseState state;
-    uint8_t buffer[256];  // packet buffer
+    uint8_t buffer[MIP_BUFFER_LEN];  // packet buffer (ensure large enough for max packet)
     uint32_t idx;         // used while collecting payload + checksum
     uint8_t payload_len;
     float accel[3];
@@ -124,7 +134,6 @@ static const Flexcan_Ip_DataInfoType tx_infoG = {
     .is_polling  = TRUE,
     .is_remote   = FALSE
 };
-
 
 
 
@@ -224,6 +233,8 @@ const uint8_t expected_enable_ack[] = {0x75, 0x65, 0x0c, 0x04, 0x04, 0xf1, 0x11,
 
 
 // Modified Send_Command_And_Get_Response (uses LPUART, polls with timeout)
+
+// Modified Send_Command_And_Get_Response (uses LPUART, polls with timeout)
 boolean Send_Command_And_Get_Response(const uint8_t* pBuffer, uint32 tx_len, uint8_t* rxBuffer, uint32 rx_len) {
     volatile Lpuart_Uart_Ip_StatusType status;
     uint32 remainingBytes, T_timeout = 0xFFFFFF;
@@ -249,6 +260,7 @@ boolean Send_Command_And_Get_Response(const uint8_t* pBuffer, uint32 tx_len, uin
 
     return (status == LPUART_UART_IP_STATUS_SUCCESS && remainingBytes == 0);
 }
+
 
 
 
@@ -292,6 +304,10 @@ bool verify_mip_checksum(const uint8_t *packet, uint32_t len) {
     return (packet[len - 2] == sum1) && (packet[len - 1] == sum2);
 }
 
+
+
+/* Per-byte MIP parser.
+   On success returns true and sets parser->packet_len to the total packet length (bytes stored in parser->buffer). */
 
 
 /* Per-byte MIP parser.
@@ -429,14 +445,12 @@ bool parse_imu_data(const uint8_t *buffer, uint32_t len, float *accel, float *gy
 
         if (desc == 0x04) {  // Accel: 3 floats (g's)
             for (int i = 0; i < 3; i++) {
-                uint8_t bytes[4] = {buffer[pos + 3], buffer[pos + 2], buffer[pos + 1], buffer[pos]};  // Big to little-endian
-                accel[i] = *(float*)bytes;
+                accel[i] = be_bytes_to_float(&buffer[pos]);
                 pos += 4;
             }
         } else if (desc == 0x05) {  // Gyro: 3 floats (rad/s)
             for (int i = 0; i < 3; i++) {
-                uint8_t bytes[4] = {buffer[pos + 3], buffer[pos + 2], buffer[pos + 1], buffer[pos]};
-                gyro[i] = *(float*)bytes;
+                gyro[i] = be_bytes_to_float(&buffer[pos]);
                 pos += 4;
             }
         } else {
@@ -487,7 +501,14 @@ const uint8_t mip_set_idlestream[] = {
 
 };
 
+const uint8_t mip_set_resumestream[] = {
+  0x75,0x65,0x01,0x02,
+  0x02,
+  0x06,
+  0xE5,
+  0xCB,
 
+};
 
 
 const uint8_t mip_set_accel_filter[] = {
@@ -499,6 +520,7 @@ const uint8_t mip_set_accel_filter[] = {
   0x01, // enable filter
   0x01, // manual cutoff
   0x00, 0xB6, // cutoff 182 Hz
+
   0x00, // reserved
   0x05, 0xF0 // checksum
 };
@@ -569,25 +591,7 @@ bool extract_accel_gyro(const uint8_t *packet, uint32_t len, float *accel_out, f
     return got_any;
 }
 
-/* Helper to send ASCII hex line (for debugging) */
-static void send_hex_line_uart8(const uint8_t *buf, uint32_t len)
-{
-    /* Each byte -> "XX " needs 3 chars; for 261 bytes need ~783 chars. Use a local buffer accordingly. */
-    static char line[900];
-    uint32_t pos = 0;
-    for (uint32_t i = 0; i < len && pos + 4 < sizeof(line); ++i) {
-        int n = snprintf(&line[pos], sizeof(line) - pos, "%02X ", buf[i]);
-        if (n <= 0) break;
-        pos += (uint32_t)n;
-    }
-    if (pos + 2 < sizeof(line)) {
-        line[pos++] = '\r';
-        line[pos++] = '\n';
-    }
-    if (pos > 0) {
-        (void)Lpuart_Uart_Ip_SyncSend(UART_LPUART_UART8_CHANNEL, (uint8_t*)line, pos, 10000);
-    }
-}
+
 
 
 
@@ -692,6 +696,101 @@ uint32_t packet_idx = 0;
 
 
 
+static void send_hex_line_uart8(const uint8_t *buf, uint32_t len)
+{
+    static char line[900];   // enough for max MIP packet (~261 bytes → ~783 chars + \r\n)
+    uint32_t pos = 0;
+
+    for (uint32_t i = 0; i < len && pos + 4 < sizeof(line); ++i) {
+        int n = snprintf(&line[pos], sizeof(line) - pos, "%02X ", buf[i]);
+        if (n <= 0) break;
+        pos += (uint32_t)n;
+    }
+
+    if (pos + 2 < sizeof(line)) {
+        line[pos++] = '\r';
+        line[pos++] = '\n';
+    }
+
+    if (pos > 0) {
+        (void)Lpuart_Uart_Ip_SyncSend(UART_LPUART_UART8_CHANNEL, (uint8_t*)line, pos, 10000);
+    }
+}
+
+
+
+
+/*
+   Convert 12 bytes big-endian IEEE 754 into 3 float values (X, Y, Z)
+   Input: pointer to start of 12-byte data
+   Output: fills 3 floats in dest[0..2]
+   Returns: true if conversion OK, false if pointer invalid
+*/
+bool convert_12bytes_to_3floats(const uint8_t *src, float dest[3])
+{
+    if (!src || !dest) return false;
+
+    // IEEE 754 single precision = 4 bytes big-endian per float
+    for (int i = 0; i < 3; i++)
+    {
+        // Use existing be_bytes_to_float (already swaps to little-endian)
+        dest[i] = be_bytes_to_float(&src[i * 4]);
+    }
+    return true;
+}
+
+
+/*
+   Convert 12 bytes (big-endian IEEE 754) starting at src into 3 floats
+   dest[0] = X, dest[1] = Y, dest[2] = Z
+*/
+void extract_3floats_from_12bytes(const uint8_t *src, float dest[3])
+{
+    if (!src || !dest) return;
+
+    for (int i = 0; i < 3; i++) {
+        dest[i] = be_bytes_to_float(&src[i * 4]);
+    }
+}
+
+
+
+
+
+volatile uint8_t a0  ;
+    volatile uint8_t a1  ;
+    volatile uint8_t a2 ;
+    volatile uint8_t a3 ;
+    volatile uint8_t a4 ;
+    volatile uint8_t a5 ;
+    volatile uint8_t a6 ;
+    volatile uint8_t a7 ;
+    volatile uint8_t a8  ;
+    volatile uint8_t a9 ;
+    volatile uint8_t a10 ;
+    volatile uint8_t a11;
+
+    // Gyro raw bytes — same reason
+    volatile uint8_t g0 ;
+    volatile uint8_t g1 ;
+    volatile uint8_t g2  ;
+    volatile uint8_t g3 ;
+    volatile uint8_t g4 ;
+    volatile uint8_t g5 ;
+    volatile uint8_t g6 ;
+    volatile uint8_t g7 ;
+    volatile uint8_t g8;
+    volatile uint8_t g9  ;
+    volatile uint8_t g10 ;
+    volatile uint8_t g11 ;
+
+
+
+// NEW: Globals for debugger tracking
+volatile float accel_x = 0.0f, accel_y = 0.0f, accel_z = 0.0f;
+volatile float gyro_x = 0.0f, gyro_y = 0.0f, gyro_z = 0.0f;
+MipParser parser;
+
 
 int main(void)
 {
@@ -795,13 +894,13 @@ int main(void)
 
 
 
-    	   MipParser parser;
+
     	   uint8_t rx;
            memset(&parser, 0, sizeof(parser));
            parser.state = STATE_IDLE;
 
            uint8 rx_byte;
-           uint8 rx_buf[102];
+           uint8 rx_buf[92];
            uint32 remaining;
            uint32 rx_len;
 
@@ -823,13 +922,15 @@ int main(void)
 
 
 
-
+           /*
            Lpuart_Uart_Ip_SyncSend(
         		   UART_LPUART_UART8_CHANNEL,   // đúng UART nối IMU
 				   mip_ping,
 				   sizeof(mip_ping),
 				   10000                        // timeout us
            );
+
+           */
 
 
 
@@ -844,13 +945,14 @@ int main(void)
 
 
 
-
+           /*
            Lpuart_Uart_Ip_SyncSend(
                     UART_LPUART_UART8_CHANNEL,   // đúng UART nối IMU
 			    	mip_set_imu_format,
            		    sizeof(mip_set_imu_format),
            		    10000                        // timeout us
            );
+           */
 
 
 
@@ -864,13 +966,15 @@ int main(void)
 
 
 
-
+           	   /*
                       Lpuart_Uart_Ip_SyncSend(
                                UART_LPUART_UART8_CHANNEL,   // đúng UART nối IMU
 							   mip_enable_stream,
                       		    sizeof(mip_enable_stream),
                       		    10000                        // timeout us
                       );
+                      */
+
 
 
 
@@ -898,12 +1002,14 @@ int main(void)
                         10000 // timeout us
                       );
 
+                      /*
                       Lpuart_Uart_Ip_SyncSend(
                         UART_LPUART_UART8_CHANNEL,
                         mip_set_accel_filter,
                         sizeof(mip_set_accel_filter),
                         10000 // timeout us
                       );
+                      */
 
                       Lpuart_Uart_Ip_SyncSend(
                         UART_LPUART_UART9_CHANNEL,
@@ -912,12 +1018,26 @@ int main(void)
                         10000 // timeout us
                       );
 
+                      /*
                       Lpuart_Uart_Ip_SyncSend(
                         UART_LPUART_UART8_CHANNEL,
                         mip_set_gyro_filter,
                         sizeof(mip_set_gyro_filter),
                         10000 // timeout us
                       );
+                      */
+
+
+
+
+                      Lpuart_Uart_Ip_SyncSend(
+                                                      UART_LPUART_UART9_CHANNEL,
+                     								 mip_set_resumestream,
+                                                      sizeof(mip_set_resumestream),
+                                                      10000 // timeout us
+                                           );
+
+
 
 
 
@@ -947,41 +1067,215 @@ int main(void)
                           uint32_t received;
 
 
+                          int count_loop_7 = 0 ;
+
+
 
 
               //  while (timeout--)
+                          uint8_t b;
+                          uint8_t desc;
+                          float temp_accel[3] = {0.0f, 0.0f, 0.0f};
+
+                          float temp_gyro[3]  = {0.0f, 0.0f, 0.0f};
+
 
                       while(1)
     			{
+
+
+
 
                         if (Lpuart_Uart_Ip_SyncReceive(
                                 UART_LPUART_UART9_CHANNEL,
 
 								rx_buf,
 							//	&rx,
-								    102,
+								    92,
                             // 1,
 								10000 // per-byte timeout
                             ) == LPUART_UART_IP_STATUS_SUCCESS)
                         {
                             // Forward the received byte to UART8
 
+
+
+
+
                         	Lpuart_Uart_Ip_SyncSend(
                                 UART_LPUART_UART8_CHANNEL,
                           //      &rx,
 								rx_buf,
-                                102,
+                                92,
                                 10000
                             );
 
 
 
+                        	// Send hex dump of received data
+                       // 	send_hex_line_uart8(rx_buf, 92);   // your existing function — perfect!
 
 
+
+                        	// Feed all 92 bytes to the parser (this is safe and fast)
+                        	        for (int i = 0; i < 92; i++)
+                        	        {
+                        	        	if (mip_parse_byte(&parser, rx_buf[i]))
+                        	        	{
+                        	        	    // Full packet received and checksum passed
+                        	        	    uint8_t desc = parser.buffer[2];
+
+                        	        	    if (desc == 0x80) // IMU data packet
+                        	        	    {
+                        	        	        // Your condition: only process when parser.buffer[47] != 0
+                        	        	        if (parser.buffer[47] != 0)
+                        	        	        {
+
+
+                        	        	            // Directly extract accel from bytes 20 to 31
+
+
+                        	        	            // Print nice values to terminal (UART8)
+                        	        	            char ascii_buf[128];
+                        	        	            snprintf(ascii_buf, sizeof(ascii_buf),
+                        	        	                     "A: %.4f %.4f %.4f g | G: %.4f %.4f %.4f rad/s\r\n",
+                        	        	                     accel_x, accel_y, accel_z, gyro_x, gyro_y, gyro_z);
+                        	        	            Lpuart_Uart_Ip_SyncSend(UART_LPUART_UART8_CHANNEL, (uint8_t*)ascii_buf, strlen(ascii_buf), 10000);
+                        	        	        }
+                        	        	    }
+                        	        	}
+                        	        }
+
+
+
+                        	         a0 = parser.buffer[20];
+                        	            a1 = parser.buffer[21];
+                        	            a2 = parser.buffer[22];
+                        	            a3 = parser.buffer[23];
+                        	            a4 = parser.buffer[24];
+                        	            a5 = parser.buffer[25];
+                        	            a6 = parser.buffer[26];
+                        	            a7 = parser.buffer[27];
+                        	            a8 = parser.buffer[28];
+                        	            a9 = parser.buffer[29];
+                        	            a10 = parser.buffer[30];
+                        	            a11 = parser.buffer[31];
+
+                        	            // Gyro bytes: parser.buffer[34] to [45]
+                        	             g0 = parser.buffer[34];
+                        	             g1 = parser.buffer[35];
+                        	             g2 = parser.buffer[36];
+                        	             g3 = parser.buffer[37];
+                        	             g4 = parser.buffer[38];
+                        	             g5 = parser.buffer[39];
+                        	             g6 = parser.buffer[40];
+                        	             g7 = parser.buffer[41];
+                        	             g8 = parser.buffer[42];
+                        	             g9 = parser.buffer[43];
+                        	             g10 = parser.buffer[44];
+                        	             g11 = parser.buffer[45];
+
+
+
+
+
+
+
+                        	        extract_3floats_from_12bytes(&parser.buffer[20], temp_accel);
+                        	        accel_x = temp_accel[0];
+                        	        accel_y = temp_accel[1];
+                        	         accel_z = temp_accel[2];
+
+                        	                               	        	            // Directly extract gyro from bytes 34 to 45
+                        	                               	        	            extract_3floats_from_12bytes(&parser.buffer[34], temp_gyro);
+                        	                               	        	            gyro_x = temp_gyro[0];
+                        	                               	        	            gyro_y = temp_gyro[1];
+                        	                               	        	            gyro_z = temp_gyro[2];
+
+
+
+
+
+
+
+
+                        	count_loop_7++;
+
+
+
+
+
+
+                        	if(count_loop_7 == 0){
+                        	 Lpuart_Uart_Ip_SyncSend(
+                        	            UART_LPUART_UART9_CHANNEL,
+										mip_set_idlestream,
+                        	            sizeof(mip_set_idlestream),
+                        	            10000 // timeout us
+                        	  );
+
+
+                        	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        	// NEW: Feed each byte in rx_buf to the parser
+                    /*
+                        	for (int i = 0; i < 102; i++) {
+                        	                                if (mip_parse_byte(&parser, rx_buf[i])) {
+                        	                                    // Packet complete - check if it's 0x80 frame
+                        	                                    if (parser.buffer[2] == 0x80) {
+                        	                                        // Accel and gyro already extracted in parser->accel and parser->gyro
+                        	                                        // Copy to globals for debugger tracking
+                        	                                        accel_x = parser.accel[0];
+                        	                                        accel_y = parser.accel[1];
+                        	                                        accel_z = parser.accel[2];
+                        	                                        gyro_x = parser.gyro[0];
+                        	                                        gyro_y = parser.gyro[1];
+                        	                                        gyro_z = parser.gyro[2];
+
+                        	                                        // Print data
+                        	                                        snprintf(ascii_buf, sizeof(ascii_buf),
+                        	                                                 "Accel: %.6f %.6f %.6f g | Gyro: %.6f %.6f %.6f rad/s\r\n",
+                        	                                                 accel_x, accel_y, accel_z,
+                        	                                                 gyro_x, gyro_y, gyro_z);
+                        	                                        Lpuart_Uart_Ip_SyncSend(UART_LPUART_UART8_CHANNEL, (uint8_t*)ascii_buf, strlen(ascii_buf), 10000);
+                        	                                    }
+                        	                                    // Reset for next packet
+                        	                                    parser.packet_len = 0;
+                        	                                }
+                        	                            }
+                        	*/
 
 
 
                         }
+
+
+
+
+                        else
+                            {
+                                // Timeout (no data for 10 ms) → reset parser if stuck
+                                if (parser.state != STATE_IDLE)
+                                {
+                                    parser.state = STATE_IDLE;
+                                    parser.idx = 0;
+                                }
+                            }
+
 
 
 
